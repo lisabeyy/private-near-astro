@@ -1,4 +1,5 @@
 import { create } from "zustand"
+import { persist } from "zustand/middleware"
 
 interface AstroResult {
   text: string
@@ -22,11 +23,18 @@ interface AstroStore {
   clearStore: () => void
 }
 
-export const useAstroStore = create<AstroStore>((set) => ({
-  result: null,
-  formData: null,
-  setResult: (result) => set({ result }),
-  setFormData: (formData) => set({ formData }),
-  clearStore: () => set({ result: null, formData: null }),
-}))
+export const useAstroStore = create<AstroStore>()(
+  persist(
+    (set) => ({
+      result: null,
+      formData: null,
+      setResult: (result) => set({ result }),
+      setFormData: (formData) => set({ formData }),
+      clearStore: () => set({ result: null, formData: null }),
+    }),
+    {
+      name: "astro-store", // localStorage key
+    }
+  )
+)
 

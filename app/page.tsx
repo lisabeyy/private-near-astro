@@ -49,6 +49,12 @@ export default function Home() {
   const { result, setResult, setFormData, clearStore } = useAstroStore()
   const [showForm, setShowForm] = useState(false)
   const [showLearnMore, setShowLearnMore] = useState(false)
+  const [isHydrated, setIsHydrated] = useState(false)
+
+  // Wait for Zustand to hydrate from localStorage
+  useEffect(() => {
+    setIsHydrated(true)
+  }, [])
   const [form, setForm] = useState<FormData>({
     firstName: "",
     surname: "",
