@@ -196,10 +196,10 @@ export function DateTimePicker({
           <>
             {/* Mobile backdrop */}
             <div
-              className="fixed inset-0 bg-black/50 z-40 sm:hidden"
+              className="fixed inset-0 bg-black/50 z-[100] sm:hidden"
               onClick={() => setIsOpen(false)}
             />
-            <div className="fixed sm:absolute inset-x-4 sm:inset-x-auto top-1/2 sm:top-auto sm:mt-2 left-0 sm:left-auto -translate-y-1/2 sm:translate-y-0 z-50 w-auto sm:w-[420px] max-w-[calc(100vw-2rem)] sm:max-w-none bg-black/95 backdrop-blur-sm border border-white/20 rounded-lg shadow-lg p-4 sm:p-4 max-h-[90vh] overflow-y-auto">
+            <div className="fixed sm:absolute inset-x-4 sm:inset-x-auto top-1/2 sm:top-auto sm:mt-2 left-0 sm:left-auto -translate-y-1/2 sm:translate-y-0 z-[101] w-auto sm:w-[420px] max-w-[calc(100vw-2rem)] sm:max-w-none bg-black/95 backdrop-blur-sm border border-white/20 rounded-lg shadow-lg p-4 sm:p-4 max-h-[90vh] overflow-y-auto">
               {/* Step 1: Year Selection */}
               {selectedYear === null && (
                 <div className="space-y-4">

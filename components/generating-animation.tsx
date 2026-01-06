@@ -41,11 +41,16 @@ export function GeneratingAnimation({ name }: GeneratingAnimationProps) {
       twinkleSpeed: number
     }> = []
 
+    // Adjust star size based on screen size (smaller on mobile)
+    const isMobile = window.innerWidth < 640
+    const maxStarSize = isMobile ? 1.2 : 2
+    const minStarSize = isMobile ? 0.3 : 0.5
+
     for (let i = 0; i < 200; i++) {
       stars.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        size: Math.random() * 2 + 0.5,
+        size: Math.random() * (maxStarSize - minStarSize) + minStarSize,
         opacity: Math.random() * 0.8 + 0.2,
         twinkleSpeed: Math.random() * 0.02 + 0.01,
       })
@@ -85,20 +90,22 @@ export function GeneratingAnimation({ name }: GeneratingAnimationProps) {
         star.opacity += Math.sin(time * star.twinkleSpeed + index) * 0.1
         star.opacity = Math.max(0.2, Math.min(1, star.opacity))
 
-        // Glow effect
+        // Glow effect - smaller on mobile
+        const isMobile = canvas.width < 640
+        const glowMultiplier = isMobile ? 3 : 5
         const gradient = ctx.createRadialGradient(
           star.x,
           star.y,
           0,
           star.x,
           star.y,
-          star.size * 5
+          star.size * glowMultiplier
         )
         gradient.addColorStop(0, `rgba(255, 255, 255, ${star.opacity * 0.5})`)
         gradient.addColorStop(1, "rgba(255, 255, 255, 0)")
         ctx.fillStyle = gradient
         ctx.beginPath()
-        ctx.arc(star.x, star.y, star.size * 5, 0, Math.PI * 2)
+        ctx.arc(star.x, star.y, star.size * glowMultiplier, 0, Math.PI * 2)
         ctx.fill()
 
         // Star

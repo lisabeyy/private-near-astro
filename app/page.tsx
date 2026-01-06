@@ -1,6 +1,7 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import { useAstroStore } from "@/store/astro-store"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -28,9 +29,11 @@ import { MarkdownContent } from "@/components/markdown-content"
 import { GeneratingAnimation } from "@/components/generating-animation"
 import { DateTimePicker } from "@/components/datetime-picker"
 import { HeroStars } from "@/components/hero-stars"
+import { MultiStepForm } from "@/components/multi-step-form"
 
 interface FormData {
-  name: string
+  firstName: string
+  surname: string
   birthDateTime: { date: string; time: string }
   location: string
   coordinates?: { lat: number; lng: number }
@@ -43,39 +46,37 @@ interface AstroResult {
 }
 
 export default function Home() {
+  const { result, setResult, setFormData, clearStore } = useAstroStore()
   const [showForm, setShowForm] = useState(false)
   const [showLearnMore, setShowLearnMore] = useState(false)
   const [form, setForm] = useState<FormData>({
-    name: "",
+    firstName: "",
+    surname: "",
     birthDateTime: { date: "", time: "" },
     location: "",
     coordinates: undefined,
     gender: "",
   })
-  const [result, setResult] = useState<AstroResult | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  // Prevent body scroll on mobile when form is open
+  useEffect(() => {
+    if (showForm || loading) {
+      document.body.style.overflow = "hidden"
+    } else {
+      document.body.style.overflow = ""
+    }
+    return () => {
+      document.body.style.overflow = ""
+    }
+  }, [showForm, loading])
 
-    // Validate required fields
-    if (!form.name) {
-      setError("Please enter your name")
-      return
-    }
-    if (!form.birthDateTime.date || !form.birthDateTime.time) {
-      setError("Please select your date and time of birth")
-      return
-    }
-    if (!form.location || !form.coordinates) {
-      setError("Please select your birth location from the suggestions")
-      return
-    }
-    if (!form.gender) {
-      setError("Please select your gender")
-      return
-    }
+  const handleSubmit = async () => {
+    // Combine firstName and surname for API (surname is optional)
+    const name = form.surname.trim()
+      ? `${form.firstName} ${form.surname}`.trim()
+      : form.firstName.trim()
 
     setLoading(true)
     setError(null)
@@ -85,7 +86,10 @@ export default function Home() {
       const res = await fetch("/api/astro", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          name, // Send combined name to API
+        }),
       })
 
       if (!res.ok) {
@@ -94,10 +98,12 @@ export default function Home() {
       }
 
       const data = await res.json()
-      setResult({
+      const astroResult = {
         text: data.text,
         verified: data.verified ?? true,
-      })
+      }
+      setResult(astroResult)
+      setFormData(form)
     } catch (err) {
       setError(err instanceof Error ? err.message : "An error occurred")
     } finally {
@@ -106,7 +112,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden">
+    <div className="min-h-screen bg-black text-white relative overflow-hidden" data-form-open={showForm || loading}>
       <ConstellationBackground animated={!loading} intensity="medium" />
 
       <div className="relative z-10 min-h-screen flex flex-col">
@@ -124,7 +130,7 @@ export default function Home() {
         </nav>
 
         {/* Main Content */}
-        <main className="flex-1 container mx-auto px-1 sm:px-6 py-8 sm:py-12 pb-20 sm:pb-24 max-w-4xl">
+        <main className="flex-1 container mx-auto px-1 sm:px-6 py-8 sm:py-12 pb-20 sm:pb-24 max-w-4xl relative">
           {!showForm && !result && <HeroStars />}
           {!showForm && !result && (
             <div className="flex flex-col items-center justify-center min-h-[70vh] text-center animate-fade-in relative z-10">
@@ -140,8 +146,7 @@ export default function Home() {
                   <p className="text-sm text-white/70 leading-relaxed">
                     <Shield className="inline h-3 w-3 sm:h-4 sm:w-4 mr-2 mb-1" />
                     <strong className="text-white">Complete Privacy:</strong> Your birth
-                    information is processed in a secure, isolated environment (TEE) and
-                    is never stored, logged, or accessible to anyone—not even us. Your
+                    information is processed securely and is never stored, logged, or accessible to anyone—not even us. Your
                     data disappears after your reading is generated.
                   </p>
                 </div>
@@ -171,12 +176,12 @@ export default function Home() {
 
           {/* Loading Animation - Full Screen */}
           {loading && (
-            <GeneratingAnimation name={form.name || "Friend"} />
+            <GeneratingAnimation name={form.firstName || "Friend"} />
           )}
 
-          {/* Form */}
+          {/* Multi-Step Form */}
           {showForm && !result && !loading && (
-            <div className="max-w-2xl mx-auto animate-slide-up px-4 sm:px-4">
+            <div className="max-w-3xl mx-auto animate-slide-up px-4 sm:px-4 relative z-10 pb-20 sm:pb-0">
               <div className="mb-6 sm:mb-8">
                 <Button
                   type="button"
@@ -186,116 +191,20 @@ export default function Home() {
                 >
                   ← Back
                 </Button>
-                <div className="text-center">
-                  <h2 className="text-3xl sm:text-4xl font-bold mb-2 sm:mb-3">Your Birth Information</h2>
-                  <p className="text-sm sm:text-base text-white/60">
-                    Enter your details to unlock your personalized astrology reading
-                  </p>
-                </div>
               </div>
 
-              <Card className="bg-black/40 backdrop-blur-sm border-white/10">
-                <CardContent className="p-4 sm:p-6 md:p-8">
-                  <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-                    <div className="space-y-2">
-                      <Label htmlFor="name" className="text-white/90 text-sm sm:text-base">
-                        Name
-                      </Label>
-                      <Input
-                        id="name"
-                        type="text"
-                        placeholder="Enter your name"
-                        value={form.name}
-                        onChange={(e) =>
-                          setForm({ ...form, name: e.target.value })
-                        }
-                        required
-                        className="bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-white/40 h-10 sm:h-11"
-                      />
-                    </div>
+              {error && (
+                <div className="mb-6 bg-red-500/10 border border-red-500/20 rounded-lg p-3 sm:p-4">
+                  <p className="text-red-400 text-sm sm:text-base">{error}</p>
+                </div>
+              )}
 
-                    <div className="space-y-2">
-                      <Label className="text-white/90 text-sm sm:text-base">
-                        Date & Time of Birth
-                      </Label>
-                      <DateTimePicker
-                        value={form.birthDateTime}
-                        onChange={(date, time) =>
-                          setForm({
-                            ...form,
-                            birthDateTime: { date, time },
-                          })
-                        }
-                        required
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="location" className="text-white/90 text-sm sm:text-base">
-                        Birth Location
-                      </Label>
-                      <LocationAutocomplete
-                        id="location"
-                        value={form.location}
-                        onChange={(location, coordinates) => {
-                          setForm({
-                            ...form,
-                            location,
-                            coordinates,
-                          })
-                        }}
-                        placeholder="Search and select your birth location..."
-                        required
-                        hasCoordinates={!!form.coordinates}
-                        className="bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-white/40 h-10 sm:h-11"
-                      />
-                      {form.coordinates ? (
-                        <p className="text-xs text-white/40">
-                          Coordinates: {form.coordinates.lat.toFixed(4)},{" "}
-                          {form.coordinates.lng.toFixed(4)}
-                        </p>
-                      ) : null}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="gender" className="text-white/90 text-sm sm:text-base">
-                        Gender <span className="text-white/50">(Required)</span>
-                      </Label>
-                      <Select
-                        value={form.gender || undefined}
-                        onValueChange={(value) => {
-                          setForm({
-                            ...form,
-                            gender: value,
-                          })
-                        }}
-                        required
-                      >
-                        <SelectTrigger
-                          id="gender"
-                          className="bg-white/5 border-white/20 text-white focus:border-white/40 h-10 sm:h-11"
-                        >
-                          <SelectValue placeholder="Select your gender" />
-                        </SelectTrigger>
-                        <SelectContent className="bg-black border-white/20">
-                          <SelectItem value="Male">Male</SelectItem>
-                          <SelectItem value="Female">Female</SelectItem>
-                          <SelectItem value="Non-binary">Non-binary</SelectItem>
-                          <SelectItem value="Other">Other</SelectItem>
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    <Button
-                      type="submit"
-                      className="w-full bg-white text-black hover:bg-white/90 h-11 sm:h-12 text-sm sm:text-base font-medium mt-6 sm:mt-8"
-                    >
-                      <Sparkles className="mr-2 h-4 w-4 sm:h-5 sm:w-5" />
-                      <span className="text-xs sm:text-base">Generate Prediction</span>
-                    </Button>
-                  </form>
-                </CardContent>
-              </Card>
+              <MultiStepForm
+                form={form}
+                setForm={setForm}
+                onSubmit={handleSubmit}
+                onBack={() => setShowForm(false)}
+              />
             </div>
           )}
 
@@ -320,14 +229,6 @@ export default function Home() {
                     <CardTitle className="text-2xl sm:text-3xl font-bold">
                       Your 2026 Astrology Prediction
                     </CardTitle>
-                    {result.verified && (
-                      <div className="flex items-center gap-2 text-xs sm:text-sm">
-                        <Shield className="h-3 w-3 sm:h-4 sm:w-4 text-white/60" />
-                        <span className="text-white/60 font-medium">
-                          TEE Verified
-                        </span>
-                      </div>
-                    )}
                   </div>
                   <CardDescription className="text-white/60 text-sm sm:text-base">
                     Your personalized birth chart interpretation and 2026 forecast
@@ -347,9 +248,7 @@ export default function Home() {
                           Your Privacy is Protected
                         </p>
                         <p className="text-xs text-white/60 leading-relaxed">
-                          This reading was processed in a Trusted Execution Environment
-                          (TEE)—a secure, isolated zone that even we can&apos;t access. Your
-                          birth information was encrypted, processed by AI, and then
+                          Your birth information was encrypted, processed by AI, and then
                           completely deleted. Nothing was stored, logged, or saved. Not
                           even we can see what you entered after your reading is complete.
                         </p>
@@ -358,10 +257,11 @@ export default function Home() {
                   </div>
                   <Button
                     onClick={() => {
-                      setResult(null)
+                      clearStore()
                       setShowForm(false)
                       setForm({
-                        name: "",
+                        firstName: "",
+                        surname: "",
                         birthDateTime: { date: "", time: "" },
                         location: "",
                         coordinates: undefined,
