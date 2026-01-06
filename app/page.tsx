@@ -347,7 +347,7 @@ export default function Home() {
                         </p>
                         <p className="text-xs text-white/60 leading-relaxed">
                           This reading was processed in a Trusted Execution Environment
-                          (TEE)—a secure, isolated zone that even we can't access. Your
+                          (TEE)—a secure, isolated zone that even we can&apos;t access. Your
                           birth information was encrypted, processed by AI, and then
                           completely deleted. Nothing was stored, logged, or saved. Not
                           even we can see what you entered after your reading is complete.

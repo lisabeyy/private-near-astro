@@ -56,7 +56,7 @@ export function LearnMoreModal({ open, onOpenChange }: LearnMoreModalProps) {
                 </h3>
                 <p className="text-white/70 leading-relaxed mb-3">
                   TEE is like a secure, isolated room inside a computer that even the
-                  computer itself can't peek into. It's hardware-level security built
+                  computer itself can&apos;t peek into. It&apos;s hardware-level security built
                   directly into modern processors.
                 </p>
                 <ul className="space-y-2 text-white/70 text-sm ml-4">
@@ -64,7 +64,7 @@ export function LearnMoreModal({ open, onOpenChange }: LearnMoreModalProps) {
                     <span className="text-white/50 mt-1">•</span>
                     <span>
                       <strong>Hardware Isolation:</strong> Your data is processed in a
-                      special secure zone that's completely separate from the rest of the
+                      special secure zone that&apos;s completely separate from the rest of the
                       system
                     </span>
                   </li>
@@ -104,8 +104,8 @@ export function LearnMoreModal({ open, onOpenChange }: LearnMoreModalProps) {
                   Traditional AI services can see and store your data. Private AI runs
                   inside a TEE, meaning the AI model processes your information without
                   anyone—including the service provider, cloud provider, or even the model
-                  owners—being able to see what you're asking or what the AI is
-                  responding with. It's like having a private conversation in a
+                  owners—being able to see what you&apos;re asking or what the AI is
+                  responding with. It&apos;s like having a private conversation in a
                   soundproof room.
                 </p>
               </div>
@@ -120,12 +120,12 @@ export function LearnMoreModal({ open, onOpenChange }: LearnMoreModalProps) {
                 <h3 className="font-semibold text-lg mb-2">NEAR AI Cloud</h3>
                 <p className="text-white/70 leading-relaxed mb-3">
                   NEAR AI Cloud is a service that provides private AI inference using TEE
-                  technology. It's built on the same principles that make blockchain
+                  technology. It&apos;s built on the same principles that make blockchain
                   secure—cryptographic verification and hardware-level security.
                 </p>
                 <p className="text-white/70 leading-relaxed">
-                  When you use our app, your data is sent to NEAR AI Cloud's TEE
-                  infrastructure, where it's processed securely and privately. The
+                  When you use our app, your data is sent to NEAR AI Cloud&apos;s TEE
+                  infrastructure, where it&apos;s processed securely and privately. The
                   service is designed to be transparent—you can verify that your data was
                   actually processed in a real TEE, not just claimed to be.
                 </p>
@@ -141,12 +141,12 @@ export function LearnMoreModal({ open, onOpenChange }: LearnMoreModalProps) {
                 <h3 className="font-semibold text-lg mb-2">DeepSeek V3.1 Model</h3>
                 <p className="text-white/70 leading-relaxed mb-3">
                   We use DeepSeek V3.1, one of the most advanced language models available
-                  today. It's specifically designed for complex reasoning and detailed
+                  today. It&apos;s specifically designed for complex reasoning and detailed
                   analysis—perfect for generating personalized astrology readings.
                 </p>
                 <p className="text-white/70 leading-relaxed">
                   Even though this powerful AI model processes your birth information, it
-                  does so entirely within the TEE. The model itself can't store or
+                  does so entirely within the TEE. The model itself can&apos;t store or
                   remember your data, and neither can anyone else. Your reading is
                   generated fresh each time, using only the information you provide.
                 </p>

@@ -125,7 +125,7 @@ export function GeneratingAnimation({ name }: GeneratingAnimationProps) {
       setStep((prev) => (prev + 1) % steps.length)
     }, 2000)
     return () => clearInterval(interval)
-  }, [])
+  }, [steps.length])
 
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
@@ -162,8 +162,8 @@ export function GeneratingAnimation({ name }: GeneratingAnimationProps) {
               <div
                 key={index}
                 className={`h-1.5 rounded-full transition-all duration-500 ${index === step
-                    ? "w-8 bg-white"
-                    : "w-1.5 bg-white/30"
+                  ? "w-8 bg-white"
+                  : "w-1.5 bg-white/30"
                   }`}
               />
             ))}
