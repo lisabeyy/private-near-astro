@@ -78,6 +78,11 @@ export default function Home() {
     }
   }, [showForm, loading])
 
+  // Don't render until hydrated to avoid hydration mismatch
+  if (!isHydrated) {
+    return null
+  }
+
   const handleSubmit = async () => {
     // Combine firstName and surname for API (surname is optional)
     const name = form.surname.trim()
