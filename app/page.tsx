@@ -68,6 +68,7 @@ export default function Home() {
 
   // Prevent body scroll on mobile when form is open
   useEffect(() => {
+    // Only prevent scrolling when form is open or loading, not when showing results
     if (showForm || loading) {
       document.body.style.overflow = "hidden"
     } else {
@@ -123,7 +124,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white relative overflow-hidden" data-form-open={showForm || loading}>
+    <div className="min-h-screen bg-black text-white relative" data-form-open={showForm || loading} data-showing-result={!!result}>
       <ConstellationBackground animated={!loading} intensity="medium" />
 
       <div className="relative z-10 min-h-screen flex flex-col">
@@ -193,7 +194,7 @@ export default function Home() {
           {/* Multi-Step Form */}
           {showForm && !result && !loading && (
             <div className="fixed inset-0 sm:relative sm:inset-auto bg-black z-50 sm:z-10 flex flex-col overflow-hidden">
-              <div className="flex-1 overflow-y-auto px-4 sm:px-4 py-4 sm:py-8">
+              <div className="flex-1 overflow-y-auto px-4 sm:px-4 py-4 sm:py-8 pb-32 sm:pb-8">
                 <div className="max-w-3xl mx-auto">
                   {error && (
                     <div className="mb-6 bg-red-500/10 border border-red-500/20 rounded-lg p-3 sm:p-4">
@@ -226,7 +227,7 @@ export default function Home() {
 
           {/* Result Display */}
           {result && (
-            <div className="max-w-3xl mx-auto animate-slide-up px-4 w-full overflow-x-hidden">
+            <div className="max-w-3xl mx-auto animate-slide-up px-4 w-full overflow-x-hidden pb-8">
               <Card className="bg-black/40 backdrop-blur-sm border-white/10 overflow-x-hidden">
                 <CardHeader className="pb-4 px-4 sm:px-6">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
@@ -252,9 +253,11 @@ export default function Home() {
                           Your Privacy is Protected
                         </p>
                         <p className="text-xs text-white/60 leading-relaxed">
-                          Your birth information was encrypted, processed by AI, and then
-                          completely deleted. Nothing was stored, logged, or saved. Not
-                          even we can see what you entered after your reading is complete.
+                          Your birth information is encrypted and processed inside a hardware-isolated
+                          Trusted Execution Environment (TEE). The data is never stored, logged, or
+                          accessible to anyone—not even the cloud provider or model owner can see it.
+                          Your information exists only during processing and is cryptographically
+                          verified to run in a secure TEE.
                         </p>
                       </div>
                     </div>

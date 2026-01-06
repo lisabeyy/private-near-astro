@@ -86,13 +86,15 @@ export function LocationAutocomplete({
           }
         )
       } else {
-        // Use our Next.js API route to proxy Nominatim requests (avoids CORS and rate limiting)
+        // Use our Next.js API route to proxy location requests (avoids CORS and rate limiting)
         const response = await fetch(`/api/location?q=${encodeURIComponent(query)}`)
 
         if (response.ok) {
           const data = await response.json()
           setSuggestions(data.locations || [])
         } else {
+          const errorData = await response.json().catch(() => ({}))
+          console.error("Location API error:", errorData.error || "Failed to fetch locations")
           setSuggestions([])
         }
         setIsLoading(false)

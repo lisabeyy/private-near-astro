@@ -135,8 +135,8 @@
     overflow-x: hidden;
   }
   
-  /* Prevent pull-to-refresh on mobile */
-  body:has([data-form-open="true"]) {
+  /* Prevent pull-to-refresh on mobile - only when form is open or loading, not when showing results */
+  body:has([data-form-open="true"]):not(:has([data-showing-result="true"])) {
     overflow: hidden;
     position: fixed;
     width: 100%;
