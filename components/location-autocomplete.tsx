@@ -86,28 +86,12 @@ export function LocationAutocomplete({
           }
         )
       } else {
-        // Use OpenStreetMap Nominatim (free, no API key needed)
-        const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(
-            query
-          )}&limit=5&addressdetails=1`,
-          {
-            headers: {
-              "User-Agent": "PrivateAstrologyApp/1.0", // Required by Nominatim
-            },
-          }
-        )
+        // Use our Next.js API route to proxy Nominatim requests (avoids CORS and rate limiting)
+        const response = await fetch(`/api/location?q=${encodeURIComponent(query)}`)
 
         if (response.ok) {
           const data = await response.json()
-          setSuggestions(
-            data.map((item: any) => ({
-              display_name: item.display_name,
-              lat: item.lat,
-              lon: item.lon,
-              place_id: item.place_id,
-            }))
-          )
+          setSuggestions(data.locations || [])
         } else {
           setSuggestions([])
         }

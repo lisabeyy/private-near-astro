@@ -377,7 +377,7 @@ export function MultiStepForm({ form, setForm, onSubmit, onBack }: MultiStepForm
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex justify-between gap-4 mt-auto pt-6 border-t border-white/10 sm:relative pb-4 sm:pb-0 -mx-6 sm:mx-0 px-6 sm:px-0">
+          <div className="flex justify-between gap-4 mt-auto pt-6 border-t border-white/10 sticky bottom-0 bg-black sm:bg-transparent pb-4 sm:pb-0 -mx-6 sm:mx-0 px-6 sm:px-0 z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.8)] sm:shadow-none">
             <Button
               type="button"
               variant="outline"
