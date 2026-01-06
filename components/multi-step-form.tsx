@@ -12,7 +12,8 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Card, CardContent } from "@/components/ui/card"
-import { DateTimePicker } from "@/components/datetime-picker"
+import { DatePicker } from "@/components/date-picker"
+import { TimePicker } from "@/components/time-picker"
 import { LocationAutocomplete } from "@/components/location-autocomplete"
 import { ChevronRight, ChevronLeft, Check, User, Calendar, MapPin, Users } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -220,16 +221,36 @@ export function MultiStepForm({ form, setForm, onSubmit, onBack }: MultiStepForm
                 </p>
               </div>
               <div className="space-y-4">
-                <DateTimePicker
-                  value={form.birthDateTime}
-                  onChange={(date, time) =>
-                    setForm({
-                      ...form,
-                      birthDateTime: { date, time },
-                    })
-                  }
-                  required
-                />
+                <div className="space-y-2">
+                  <Label className="text-white/90 text-sm sm:text-base">
+                    Date of Birth
+                  </Label>
+                  <DatePicker
+                    value={form.birthDateTime.date}
+                    onChange={(date) =>
+                      setForm({
+                        ...form,
+                        birthDateTime: { ...form.birthDateTime, date },
+                      })
+                    }
+                    required
+                  />
+                </div>
+                <div className="space-y-2">
+                  <Label className="text-white/90 text-sm sm:text-base">
+                    Time of Birth <span className="text-white/50">(24-hour format)</span>
+                  </Label>
+                  <TimePicker
+                    value={form.birthDateTime.time}
+                    onChange={(time) =>
+                      setForm({
+                        ...form,
+                        birthDateTime: { ...form.birthDateTime, time },
+                      })
+                    }
+                    required
+                  />
+                </div>
                 {errors.birthDateTime && (
                   <p className="text-xs text-red-400">{errors.birthDateTime}</p>
                 )}
