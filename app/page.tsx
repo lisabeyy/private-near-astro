@@ -69,15 +69,21 @@ export default function Home() {
   // Prevent body scroll on mobile when form is open
   useEffect(() => {
     // Only prevent scrolling when form is open or loading, not when showing results
-    if (showForm || loading) {
+    if ((showForm || loading) && !result) {
       document.body.style.overflow = "hidden"
+      document.body.style.position = "fixed"
+      document.body.style.width = "100%"
     } else {
       document.body.style.overflow = ""
+      document.body.style.position = ""
+      document.body.style.width = ""
     }
     return () => {
       document.body.style.overflow = ""
+      document.body.style.position = ""
+      document.body.style.width = ""
     }
-  }, [showForm, loading])
+  }, [showForm, loading, result])
 
   // Don't render until hydrated to avoid hydration mismatch
   if (!isHydrated) {
@@ -124,7 +130,7 @@ export default function Home() {
   }
 
   return (
-    <div className="min-h-screen bg-black text-white relative" data-form-open={showForm || loading} data-showing-result={!!result}>
+    <div className="min-h-screen bg-black text-white relative" data-form-open={showForm || loading} data-showing-result={result ? "true" : "false"}>
       <ConstellationBackground animated={!loading} intensity="medium" />
 
       <div className="relative z-10 min-h-screen flex flex-col">

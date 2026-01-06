@@ -30,9 +30,10 @@ export function TimePicker({
         type="time"
         value={value}
         onChange={handleTimeChange}
-        className="bg-white/5 border-white/20 text-white focus:border-white/40 h-10 sm:h-11 text-sm placeholder:text-white/40 px-3"
+        className="bg-white/5 border-white/20 text-white focus:border-white/40 h-10 sm:h-11 text-sm placeholder:text-white/40 px-3 w-full"
         step="60"
         required={required}
+        style={{ minHeight: '40px', maxHeight: '44px' }}
       />
       <p className="text-xs text-white/50">
         Select time in 24-hour format (e.g., 14:30 for 2:30 PM)

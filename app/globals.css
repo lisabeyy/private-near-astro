@@ -135,11 +135,17 @@
     overflow-x: hidden;
   }
   
-  /* Prevent pull-to-refresh on mobile - only when form is open or loading, not when showing results */
-  body:has([data-form-open="true"]):not(:has([data-showing-result="true"])) {
+  /* Prevent pull-to-refresh on mobile - only when form is open or loading, NOT when showing results */
+  body:has([data-form-open="true"][data-showing-result="false"]) {
     overflow: hidden;
     position: fixed;
     width: 100%;
+  }
+  
+  /* Ensure scrolling works when results are shown */
+  body:has([data-showing-result="true"]) {
+    overflow: auto;
+    position: relative;
   }
 }
 

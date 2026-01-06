@@ -166,6 +166,7 @@ export function DatePicker({
             "w-full justify-start text-left font-normal bg-white/5 border-white/20 text-white hover:bg-white/10 h-10 sm:h-11 touch-manipulation px-3",
             !value && "text-white/40"
           )}
+          style={{ minHeight: '40px', maxHeight: '44px' }}
         >
           <Calendar className="mr-2 h-4 w-4" />
           <span className="flex-1 text-left">{displayValue}</span>
