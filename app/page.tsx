@@ -181,30 +181,33 @@ export default function Home() {
 
           {/* Multi-Step Form */}
           {showForm && !result && !loading && (
-            <div className="max-w-3xl mx-auto animate-slide-up px-4 sm:px-4 relative z-10 pb-20 sm:pb-0">
-              <div className="mb-6 sm:mb-8">
-                <Button
-                  type="button"
-                  variant="ghost"
-                  onClick={() => setShowForm(false)}
-                  className="mb-4 text-white/60 hover:text-white hover:bg-white/10"
-                >
-                  ← Back
-                </Button>
-              </div>
+            <div className="fixed inset-0 sm:relative sm:inset-auto bg-black z-50 sm:z-10 flex flex-col overflow-hidden">
+              <div className="flex-1 overflow-y-auto px-4 sm:px-4 py-4 sm:py-8">
+                <div className="max-w-3xl mx-auto">
+                  {/* Back button - only on mobile, top left */}
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => setShowForm(false)}
+                    className="mb-4 sm:hidden text-white/60 hover:text-white hover:bg-white/10 fixed top-4 left-4 z-[102]"
+                  >
+                    ← Back
+                  </Button>
 
-              {error && (
-                <div className="mb-6 bg-red-500/10 border border-red-500/20 rounded-lg p-3 sm:p-4">
-                  <p className="text-red-400 text-sm sm:text-base">{error}</p>
+                  {error && (
+                    <div className="mb-6 bg-red-500/10 border border-red-500/20 rounded-lg p-3 sm:p-4 mt-12 sm:mt-0">
+                      <p className="text-red-400 text-sm sm:text-base">{error}</p>
+                    </div>
+                  )}
+
+                  <MultiStepForm
+                    form={form}
+                    setForm={setForm}
+                    onSubmit={handleSubmit}
+                    onBack={() => setShowForm(false)}
+                  />
                 </div>
-              )}
-
-              <MultiStepForm
-                form={form}
-                setForm={setForm}
-                onSubmit={handleSubmit}
-                onBack={() => setShowForm(false)}
-              />
+              </div>
             </div>
           )}
 

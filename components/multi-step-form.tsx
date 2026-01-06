@@ -106,7 +106,7 @@ export function MultiStepForm({ form, setForm, onSubmit, onBack }: MultiStepForm
   }
 
   return (
-    <div className="space-y-6 flex flex-col min-h-[calc(100vh-12rem)] sm:min-h-0">
+    <div className="space-y-6 flex flex-col min-h-0 sm:min-h-0">
       {/* Progress Steps */}
       <div className="flex items-center justify-between mb-8">
         {steps.map((step, index) => {
@@ -357,7 +357,7 @@ export function MultiStepForm({ form, setForm, onSubmit, onBack }: MultiStepForm
           )}
 
           {/* Navigation Buttons */}
-          <div className="flex justify-between gap-4 mt-auto pt-6 border-t border-white/10 sticky bottom-0 bg-black sm:bg-transparent pb-6 sm:pb-0 -mx-6 sm:mx-0 px-6 sm:px-0 z-50 shadow-[0_-4px_20px_rgba(0,0,0,0.8)]">
+          <div className="flex justify-between gap-4 mt-auto pt-6 border-t border-white/10 sm:relative pb-4 sm:pb-0 -mx-6 sm:mx-0 px-6 sm:px-0">
             <Button
               type="button"
               variant="outline"
