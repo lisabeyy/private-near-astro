@@ -165,13 +165,13 @@ export function MultiStepForm({ form, setForm, onSubmit, onBack }: MultiStepForm
             <div className="space-y-6 animate-fade-in flex-1">
               <div className="text-center mb-6">
                 <h3 className="text-2xl sm:text-3xl font-bold mb-2">What&apos;s your name?</h3>
-                <p className="text-white/60 text-sm sm:text-base">
+                <p className="text-white/60 text-sm">
                   Use the name you go by as your first name
                 </p>
               </div>
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label htmlFor="firstName" className="text-white/90 text-sm sm:text-base">
+                  <Label htmlFor="firstName" className="text-white/90 text-sm">
                     First Name <span className="text-white/50">(Name you go by)</span>
                   </Label>
                   <Input
@@ -182,15 +182,14 @@ export function MultiStepForm({ form, setForm, onSubmit, onBack }: MultiStepForm
                     onChange={(e) =>
                       setForm({ ...form, firstName: e.target.value })
                     }
-                    className="bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-white/40 h-12 sm:h-11 text-base sm:text-sm"
-                    autoFocus
+                    className="bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-white/40 h-10 sm:h-11 text-sm px-3"
                   />
                   {errors.firstName && (
                     <p className="text-xs text-red-400">{errors.firstName}</p>
                   )}
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="surname" className="text-white/90 text-sm sm:text-base">
+                  <Label htmlFor="surname" className="text-white/90 text-sm">
                     Last Name <span className="text-white/50">(Optional - it&apos;s private)</span>
                   </Label>
                   <Input
@@ -201,7 +200,7 @@ export function MultiStepForm({ form, setForm, onSubmit, onBack }: MultiStepForm
                     onChange={(e) =>
                       setForm({ ...form, surname: e.target.value })
                     }
-                    className="bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-white/40 h-12 sm:h-11 text-base sm:text-sm"
+                    className="bg-white/5 border-white/20 text-white placeholder:text-white/40 focus:border-white/40 h-10 sm:h-11 text-sm px-3"
                   />
                   {errors.surname && (
                     <p className="text-xs text-red-400">{errors.surname}</p>
@@ -216,13 +215,13 @@ export function MultiStepForm({ form, setForm, onSubmit, onBack }: MultiStepForm
             <div className="space-y-6 animate-fade-in flex-1">
               <div className="text-center mb-6">
                 <h3 className="text-2xl sm:text-3xl font-bold mb-2">When were you born?</h3>
-                <p className="text-white/60 text-sm sm:text-base">
+                <p className="text-white/60 text-sm">
                   Select your date and time of birth for accurate chart calculation
                 </p>
               </div>
               <div className="space-y-4">
                 <div className="space-y-2">
-                  <Label className="text-white/90 text-sm sm:text-base">
+                  <Label className="text-white/90 text-sm">
                     Date of Birth
                   </Label>
                   <DatePicker
@@ -237,7 +236,7 @@ export function MultiStepForm({ form, setForm, onSubmit, onBack }: MultiStepForm
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label className="text-white/90 text-sm sm:text-base">
+                  <Label className="text-white/90 text-sm">
                     Time of Birth <span className="text-white/50">(24-hour format)</span>
                   </Label>
                   <TimePicker
@@ -263,7 +262,7 @@ export function MultiStepForm({ form, setForm, onSubmit, onBack }: MultiStepForm
             <div className="space-y-6 animate-fade-in flex-1 relative">
               <div className="text-center mb-6">
                 <h3 className="text-2xl sm:text-3xl font-bold mb-2">Where were you born?</h3>
-                <p className="text-white/60 text-sm sm:text-base">
+                <p className="text-white/60 text-sm">
                   Search and select your birth location for precise coordinates
                 </p>
               </div>
@@ -300,7 +299,7 @@ export function MultiStepForm({ form, setForm, onSubmit, onBack }: MultiStepForm
             <div className="space-y-6 animate-fade-in flex-1">
               <div className="text-center mb-6">
                 <h3 className="text-2xl sm:text-3xl font-bold mb-2">How should we address you?</h3>
-                <p className="text-white/60 text-sm sm:text-base">
+                <p className="text-white/60 text-sm">
                   We use this to personalize your reading with the correct pronouns
                 </p>
               </div>
@@ -315,7 +314,7 @@ export function MultiStepForm({ form, setForm, onSubmit, onBack }: MultiStepForm
                   }}
                   required
                 >
-                  <SelectTrigger className="bg-white/5 border-white/20 text-white focus:border-white/40 h-12 sm:h-11 text-base sm:text-sm">
+                  <SelectTrigger className="bg-white/5 border-white/20 text-white focus:border-white/40 h-10 sm:h-11 text-sm">
                     <SelectValue placeholder="Select your gender" />
                   </SelectTrigger>
                   <SelectContent className="bg-black border-white/20">
@@ -326,7 +325,7 @@ export function MultiStepForm({ form, setForm, onSubmit, onBack }: MultiStepForm
                   </SelectContent>
                 </Select>
                 {form.gender === "Non-binary" && (
-                  <div className="bg-white/5 rounded-lg p-3 text-xs sm:text-sm text-white/70">
+                  <div className="bg-white/5 rounded-lg p-3 text-sm text-white/70">
                     <p>
                       <strong>Note:</strong> We&apos;ll use &quot;they&quot; and &quot;their&quot; pronouns in your reading.
                     </p>
@@ -344,32 +343,32 @@ export function MultiStepForm({ form, setForm, onSubmit, onBack }: MultiStepForm
             <div className="space-y-6 animate-fade-in flex-1">
               <div className="text-center mb-6">
                 <h3 className="text-2xl sm:text-3xl font-bold mb-2">Review Your Information</h3>
-                <p className="text-white/60 text-sm sm:text-base">
+                <p className="text-white/60 text-sm">
                   Please verify your details before generating your reading
                 </p>
               </div>
               <div className="space-y-4 bg-white/5 rounded-lg p-4 sm:p-6">
                 <div className="flex justify-between items-start py-3 border-b border-white/10">
-                  <span className="text-white/60 text-sm sm:text-base">Name:</span>
-                  <span className="text-white font-medium text-sm sm:text-base text-right">
-                    {form.firstName} {form.surname}
+                  <span className="text-white/60 text-sm">Name:</span>
+                  <span className="text-white font-medium text-sm text-right">
+                    {form.firstName} {form.surname || ""}
                   </span>
                 </div>
                 <div className="flex justify-between items-start py-3 border-b border-white/10">
-                  <span className="text-white/60 text-sm sm:text-base">Date of Birth:</span>
-                  <span className="text-white font-medium text-sm sm:text-base text-right">
+                  <span className="text-white/60 text-sm">Date of Birth:</span>
+                  <span className="text-white font-medium text-sm text-right">
                     {formatDate(form.birthDateTime.date)} at {form.birthDateTime.time || "Not set"}
                   </span>
                 </div>
                 <div className="flex justify-between items-start py-3 border-b border-white/10">
-                  <span className="text-white/60 text-sm sm:text-base">Birth Location:</span>
-                  <span className="text-white font-medium text-sm sm:text-base text-right max-w-[60%]">
+                  <span className="text-white/60 text-sm">Birth Location:</span>
+                  <span className="text-white font-medium text-sm text-right max-w-[60%] break-words">
                     {form.location || "Not set"}
                   </span>
                 </div>
                 <div className="flex justify-between items-start py-3">
-                  <span className="text-white/60 text-sm sm:text-base">Gender:</span>
-                  <span className="text-white font-medium text-sm sm:text-base text-right">
+                  <span className="text-white/60 text-sm">Gender:</span>
+                  <span className="text-white font-medium text-sm text-right">
                     {form.gender || "Not set"}
                   </span>
                 </div>

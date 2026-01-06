@@ -163,7 +163,7 @@ export function DatePicker({
           variant="outline"
           onClick={() => setIsOpen(!isOpen)}
           className={cn(
-            "w-full justify-start text-left font-normal bg-white/5 border-white/20 text-white hover:bg-white/10 h-12 sm:h-11 touch-manipulation",
+            "w-full justify-start text-left font-normal bg-white/5 border-white/20 text-white hover:bg-white/10 h-10 sm:h-11 touch-manipulation px-3",
             !value && "text-white/40"
           )}
         >

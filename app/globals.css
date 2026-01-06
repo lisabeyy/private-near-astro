@@ -98,6 +98,9 @@
 /* Markdown reading styles */
 .astro-reading {
   @apply text-white/90;
+  overflow-x: hidden;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .astro-reading h1:first-child {
@@ -106,10 +109,17 @@
 
 .astro-reading a {
   @apply text-white underline hover:text-white/80;
+  word-break: break-all;
 }
 
 .astro-reading img {
   @apply rounded-lg my-4 max-w-full;
+}
+
+.astro-reading * {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
 }
 
 /* Touch optimization */
@@ -149,6 +159,13 @@
   
   .astro-reading p {
     @apply text-sm;
+  }
+  
+  .astro-reading pre,
+  .astro-reading code {
+    @apply text-xs;
+    overflow-x: auto;
+    max-width: 100%;
   }
   
   /* Improve time input on mobile */

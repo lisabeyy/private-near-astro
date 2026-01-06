@@ -215,8 +215,8 @@ export default function Home() {
 
           {/* Result Display */}
           {result && (
-            <div className="max-w-3xl mx-auto animate-slide-up px-4">
-              <Card className="bg-black/40 backdrop-blur-sm border-white/10">
+            <div className="max-w-3xl mx-auto animate-slide-up px-4 w-full overflow-x-hidden">
+              <Card className="bg-black/40 backdrop-blur-sm border-white/10 overflow-x-hidden">
                 <CardHeader className="pb-4 px-4 sm:px-6">
                   <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-2">
                     <CardTitle className="text-2xl sm:text-3xl font-bold">
@@ -227,8 +227,8 @@ export default function Home() {
                     Your personalized birth chart interpretation and 2026 forecast
                   </CardDescription>
                 </CardHeader>
-                <CardContent className="px-4 sm:px-6 pb-6">
-                  <div className="astro-reading">
+                <CardContent className="px-4 sm:px-6 pb-6 overflow-x-hidden">
+                  <div className="astro-reading overflow-x-hidden break-words">
                     <MarkdownContent content={result.text} />
                   </div>
                 </CardContent>
@@ -277,41 +277,43 @@ export default function Home() {
       <LearnMoreModal open={showLearnMore} onOpenChange={setShowLearnMore} />
 
       {/* Footer - Fixed at bottom */}
-      <footer className="fixed bottom-0 left-0 right-0 z-20 py-4 px-6">
-        <div className="container mx-auto max-w-4xl">
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xs text-white/30">
-            <span>Built by</span>
-            <div className="flex items-center gap-3">
-              <a
-                href="https://x.com/lisabeyy"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-white/30 hover:text-white/60 transition-colors"
-              >
-                <svg
-                  className="h-3 w-3"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  xmlns="http://www.w3.org/2000/svg"
+      {!showForm && !result && (
+        <footer className="fixed bottom-0 left-0 right-0 z-20 py-4 px-6">
+          <div className="container mx-auto max-w-4xl">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-4 text-xs text-white/30">
+              <span>Built by</span>
+              <div className="flex items-center gap-3">
+                <a
+                  href="https://x.com/lisabeyy"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-white/30 hover:text-white/60 transition-colors"
                 >
-                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-                </svg>
-                <span>@lisabeyy</span>
-              </a>
-              <span className="text-white/20">•</span>
-              <a
-                href="https://github.com/lisabeyy/private-near-astro"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1.5 text-white/30 hover:text-white/60 transition-colors"
-              >
-                <Github className="h-3 w-3" />
-                <span>GitHub</span>
-              </a>
+                  <svg
+                    className="h-3 w-3"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                  <span>@lisabeyy</span>
+                </a>
+                <span className="text-white/20">•</span>
+                <a
+                  href="https://github.com/lisabeyy/private-near-astro"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 text-white/30 hover:text-white/60 transition-colors"
+                >
+                  <Github className="h-3 w-3" />
+                  <span>GitHub</span>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </footer>
+        </footer>
+      )}
     </div>
   )
 }
