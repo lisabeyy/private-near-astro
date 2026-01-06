@@ -14,7 +14,7 @@ A privacy-preserving astrology prediction web application that generates persona
 
 ### Prerequisites
 
-- Node.js 18+ and pnpm (or npm/yarn)
+- Node.js 18+ and npm (or npm/yarn)
 - A NEAR AI Cloud API key ([Get one here](https://cloud.near.ai))
 
 ### Installation
@@ -22,7 +22,7 @@ A privacy-preserving astrology prediction web application that generates persona
 1. **Install dependencies:**
 
 ```bash
-pnpm install
+npm install
 ```
 
 2. **Set up environment variables:**
