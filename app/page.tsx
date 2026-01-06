@@ -27,6 +27,7 @@ import { LearnMoreModal } from "@/components/learn-more-modal"
 import { MarkdownContent } from "@/components/markdown-content"
 import { GeneratingAnimation } from "@/components/generating-animation"
 import { DateTimePicker } from "@/components/datetime-picker"
+import { HeroStars } from "@/components/hero-stars"
 
 interface FormData {
   name: string
@@ -123,9 +124,10 @@ export default function Home() {
         </nav>
 
         {/* Main Content */}
-        <main className="flex-1 container mx-auto px-4 sm:px-6 py-8 sm:py-12 pb-20 sm:pb-24 max-w-4xl">
+        <main className="flex-1 container mx-auto px-1 sm:px-6 py-8 sm:py-12 pb-20 sm:pb-24 max-w-4xl">
+          {!showForm && !result && <HeroStars />}
           {!showForm && !result && (
-            <div className="flex flex-col items-center justify-center min-h-[70vh] text-center animate-fade-in">
+            <div className="flex flex-col items-center justify-center min-h-[70vh] text-center animate-fade-in relative z-10">
               <div className="mb-6 sm:mb-8 px-4">
                 <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 tracking-tight">
                   Discover Your
@@ -133,10 +135,9 @@ export default function Home() {
                   <span className="text-white/60">2026 Destiny</span>
                 </h1>
                 <p className="text-lg sm:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed mb-4 sm:mb-6">
-                  Unlock your free personalized astrology reading and discover what the stars have in store for 2026
-                </p>
+                  Unlock your free personalized astrology reading </p>
                 <div className="max-w-xl mx-auto bg-white/5 backdrop-blur-sm border border-white/10 rounded-lg p-3 sm:p-4 text-left">
-                  <p className="text-xs sm:text-sm text-white/70 leading-relaxed">
+                  <p className="text-sm text-white/70 leading-relaxed">
                     <Shield className="inline h-3 w-3 sm:h-4 sm:w-4 mr-2 mb-1" />
                     <strong className="text-white">Complete Privacy:</strong> Your birth
                     information is processed in a secure, isolated environment (TEE) and
@@ -175,7 +176,7 @@ export default function Home() {
 
           {/* Form */}
           {showForm && !result && !loading && (
-            <div className="max-w-2xl mx-auto animate-slide-up px-4">
+            <div className="max-w-2xl mx-auto animate-slide-up px-4 sm:px-4">
               <div className="mb-6 sm:mb-8">
                 <Button
                   type="button"

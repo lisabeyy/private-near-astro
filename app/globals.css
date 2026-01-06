@@ -112,6 +112,12 @@
   @apply rounded-lg my-4 max-w-full;
 }
 
+/* Touch optimization */
+.touch-manipulation {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
 /* Mobile responsive adjustments */
 @media (max-width: 640px) {
   .astro-reading h1 {
@@ -128,6 +134,11 @@
   
   .astro-reading p {
     @apply text-sm;
+  }
+  
+  /* Improve time input on mobile */
+  input[type="time"] {
+    font-size: 16px !important; /* Prevents zoom on iOS */
   }
 }
 
